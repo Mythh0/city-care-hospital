@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CityCare Triage</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#f4f6fb;--ink:#0f1b3d;--muted:#64708a;--line:#e6eaf2;--brand:#2748c9;--soft:#eaf0ff;--em:#d92d3a;--em-bg:#fdecee;--se:#b45f00;--se-bg:#fff3dc;--no:#13803f;--no-bg:#e3f6ea;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+h2,h3{margin:0;font-weight:700}h2{font-size:26px}h3{font-size:17px}p{margin:0}.muted{color:var(--muted)}
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}body.land .app{grid-template-columns:1fr}body.land aside{display:none}
+aside{background:#fff;border-right:1px solid var(--line);padding:20px 14px;position:sticky;top:env(safe-area-inset-top,0px);align-self:start;height:100vh}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;padding:0 8px 22px}.brand small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.logo{width:38px;height:38px;border-radius:11px;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:24px;font-weight:700;flex:none}
+nav{display:grid;gap:4px}nav button{display:flex;align-items:center;gap:12px;border:0;background:none;color:var(--muted);font:500 14px inherit;font-family:inherit;padding:11px 12px;border-radius:10px;cursor:pointer;text-align:left}
+nav button:hover{background:var(--bg)}nav button[aria-current="page"]{background:var(--soft);color:var(--brand);font-weight:600}
+main{padding:26px 28px 40px;max-width:1120px;width:100%}body.land main{margin:0 auto;max-width:900px}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #9db4f5;outline-offset:2px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:20px}.top p{margin-top:2px}.upd{font-size:13px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 1px 2px rgba(15,27,61,.04)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:18px}
+.stat{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.stat b{display:block;font-size:28px;line-height:1.1}.stat span{color:var(--muted);font-size:13px}
+.ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;flex:none;background:var(--soft);color:var(--brand)}
+.ico.e{background:var(--em-bg);color:var(--em)}.ico.w{background:var(--se-bg);color:var(--se)}.ico.t{background:var(--no-bg);color:var(--no)}
+.split2{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;margin-bottom:16px}.split{display:grid;grid-template-columns:1fr 340px;gap:16px;align-items:start}.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:10px;font:600 14px inherit;font-family:inherit;padding:11px 18px;cursor:pointer}.btn:hover{background:#1d3aa8}
+.btn.ghost{background:#fff;color:var(--brand);border:1px solid #bcd0fb}.btn:disabled{opacity:.45;cursor:not-allowed}
+.emq{border:2px solid var(--em);background:linear-gradient(#fff,#fff9f9)}.ch{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}.emq h3{color:var(--em)}
+.erow{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:10px 0;border-top:1px solid #f6d3d6}.erow span{color:var(--muted);font-size:13px}.ok2{color:var(--no);font-weight:600;padding:10px 0}
+.donut{width:150px;height:150px;border-radius:50%;margin:14px auto;display:grid;place-items:center;position:relative}
+.donut::after{content:"";position:absolute;inset:26px;background:#fff;border-radius:50%}.donut b,.donut small{position:relative;z-index:1;text-align:center;grid-area:1/1}.donut b{font-size:28px;margin-top:-10px}.donut small{margin-top:30px;color:var(--muted)}
+.leg{display:grid;gap:6px;font-size:14px}.leg div{display:flex;justify-content:space-between}.leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
+.role{text-align:left;cursor:pointer;font:inherit;color:inherit;background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px}.role:hover{border-color:var(--brand);background:var(--soft)}.role h3{font-size:20px;margin-bottom:6px}
+.hero{display:flex;align-items:center;gap:12px;margin-bottom:22px}.hero .brand{padding:0;font-size:22px}
+form{display:grid;gap:14px;max-width:560px}label{display:grid;gap:5px;font-weight:600;font-size:14px}.req{color:var(--em)}
+input,select{font:inherit;color:var(--ink);background:#fff;border:1px solid #cbd3e3;border-radius:10px;padding:10px 12px;width:100%}input[readonly]{background:var(--bg);color:var(--muted)}
+input[aria-invalid="true"]{border-color:var(--em);background:var(--em-bg)}
+.fe,.err{color:var(--em);font-size:13px;font-weight:500;min-height:0}.err{min-height:18px;font-size:14px;margin:0}.hint{color:var(--muted);font-size:13px}
+.okb{background:var(--no-bg);color:var(--no);border:1px solid #b6e2c6;border-radius:12px;padding:12px 16px;margin-bottom:14px;font-weight:600}
+fieldset{border:0;padding:0;margin:0}legend{font-weight:600;font-size:14px;margin-bottom:6px}
+.syms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px}.syms label{display:flex;align-items:center;gap:8px;font-weight:400;border:1px solid var(--line);border-radius:10px;padding:9px 11px}.syms input{width:auto}
+.pri{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.pri label{display:block;font-weight:600}.pri input{position:absolute;opacity:0;width:1px}
+.pri span{display:block;text-align:center;padding:10px 6px;border:2px solid var(--line);border-radius:10px;cursor:pointer}
+.pri input:checked+span.Emergency{border-color:var(--em);background:var(--em);color:#fff}.pri input:checked+span.Serious{border-color:#f59e0b;background:var(--se-bg);color:var(--se)}.pri input:checked+span.Normal{border-color:#22c55e;background:var(--no-bg);color:var(--no)}
+.pri input:focus-visible+span{outline:3px solid #9db4f5;outline-offset:2px}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.sr{flex:1;min-width:200px;max-width:320px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:#fff;color:var(--muted);font:500 13px inherit;font-family:inherit;border-radius:99px;padding:7px 14px;cursor:pointer}.chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.list{display:grid;gap:10px}.row{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;text-align:left;font:inherit;color:inherit;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 16px;cursor:pointer;width:100%}
+.row:hover{border-color:#b7c6ee}.row.sel{border-color:var(--brand);box-shadow:0 0 0 2px var(--soft)}
+.row.Emergency{border-left:6px solid var(--em);background:#fff9f9}.row.Serious{border-left:6px solid #f59e0b}.row.Normal{border-left:6px solid #22c55e}
+.rk{width:32px;height:32px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-weight:700;font-size:14px}.rk.Emergency{background:var(--em);color:#fff}
+.rm b{margin-right:4px}.rm small{color:var(--muted)}.rm>span{display:block;color:var(--muted);font-size:13px}.rr{text-align:right}.rr small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.det{position:sticky;top:16px}.det.empty{text-align:center;padding:36px 20px}.eye{font-size:34px;color:var(--muted)}
+.why{border-radius:12px;padding:10px 14px;margin:12px 0;font-size:14px}.why.Emergency{background:var(--em-bg)}.why.Serious{background:var(--se-bg)}.why.Normal{background:var(--no-bg)}
+dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:12px 0}dt{color:var(--muted);font-size:13px}dd{margin:0;font-weight:500}.det label{margin-bottom:12px}
+.tag{display:inline-block;padding:2px 11px;border-radius:99px;font-weight:600;font-size:12px}
+.tag.Emergency{background:var(--em);color:#fff}.tag.Serious{background:var(--se-bg);color:var(--se)}.tag.Normal,.tag.Treated{background:var(--no-bg);color:var(--no)}
+.empty{text-align:center;color:var(--muted);padding:26px}.tw{overflow-x:auto;padding:0}table{width:100%;border-collapse:collapse;min-width:560px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);font-size:14px}th{color:var(--muted);font-weight:500;font-size:13px;background:#f8f9fd}
+.ticket{max-width:540px;text-align:center}.ticket .id{font-size:46px;font-weight:700;line-height:1.1;color:var(--brand);margin:6px 0}.ticket dl{text-align:left;grid-template-columns:1fr 1fr}
+.srch{display:flex;gap:8px;max-width:420px;margin-bottom:14px}
+.lvl{display:flex;justify-content:space-around;gap:8px;margin:12px 0}.node{border:2px solid;border-radius:10px;padding:6px 10px;text-align:center;min-width:76px}.node b{display:block;font-size:14px}.node small{display:block;font-size:11px;min-height:14px}
+.node.Emergency{border-color:var(--em);background:var(--em-bg);color:var(--em)}.node.Serious{border-color:#f59e0b;background:var(--se-bg);color:var(--se)}.node.Normal{border-color:#22c55e;background:var(--no-bg);color:var(--no)}
+.qrow{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:12px 0}.qrow i{color:var(--muted);font-style:normal}.arr{background:var(--bg);border-radius:10px;padding:8px 10px;font-size:13px;color:var(--muted);overflow-x:auto;margin-top:10px}
+.ops{margin:0;padding:0;list-style:none}.ops li{padding:7px 0;border-bottom:1px solid var(--line)}.ops span{color:var(--muted);margin-right:10px}
+.cbar{display:grid;grid-template-columns:90px 1fr 34px;gap:10px;align-items:center;margin:10px 0}.cbar i{display:block;height:12px;border-radius:6px}
+.disc{margin-top:26px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}.pr{display:none}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}.toast.show{opacity:1}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+@media (max-width:860px){.app{display:block}aside{position:fixed;left:0;right:0;bottom:0;top:auto;height:auto;z-index:10;border-right:0;border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}aside .brand{display:none}
+nav{display:flex;overflow-x:auto;gap:2px}nav button{flex:1 0 auto;flex-direction:column;gap:2px;font-size:11px;padding:7px 10px;text-align:center}main{padding:18px 14px 96px}h2{font-size:22px}.split,.split2{grid-template-columns:1fr}.det{position:static}.rr small{display:none}}
+@media print{aside,.noprint,.toast,.bar{display:none!important}.app{display:block}body{background:#fff}main{padding:0}.card,.stat{box-shadow:none;break-inside:avoid}.pr{display:block;margin-bottom:14px}}
+</style>
+</head>
+<body class="land">
+<div class="app"><aside><div class="brand"><div class="logo">+</div><div>CityCare<small>Emergency Dept.</small></div></div><nav id="nav" aria-label="Sections"></nav></aside><main id="app"></main></div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const RK={Emergency:3,Serious:2,Normal:1};
+// DSA 1: Max-Heap. Highest priority (then earliest arrival) is always at the root.
+class MaxHeap{constructor(){this.h=[]}
+gt(a,b){return a.rank>b.rank||(a.rank===b.rank&&a.seq<b.seq)}
+insert(p){const h=this.h;h.push(p);let i=h.length-1;while(i>0){const q=(i-1)>>1;if(!this.gt(h[i],h[q]))break;[h[i],h[q]]=[h[q],h[i]];i=q}}
+extractMax(){const h=this.h;if(!h.length)return null;const top=h[0],last=h.pop();if(h.length){h[0]=last;let i=0;for(;;){let l=2*i+1,r=l+1,m=i;if(l<h.length&&this.gt(h[l],h[m]))m=l;if(r<h.length&&this.gt(h[r],h[m]))m=r;if(m===i)break;[h[i],h[m]]=[h[m],h[i]];i=m}}return top}
+remove(id){const a=this.h.filter(p=>p.id!==id);this.h=[];a.forEach(p=>this.insert(p))}
+sorted(){return[...this.h].sort((a,b)=>b.rank-a.rank||a.seq-b.seq)}}
+// DSA 2: Queue (FIFO). First patient in is the first patient called.
+class Queue{constructor(){this.items=[]}enqueue(p){this.items.push(p)}dequeue(){return this.items.shift()||null}remove(id){this.items=this.items.filter(p=>p.id!==id)}}
+
+const KEY="citycare-triage-v5";let seq=0,treated=[],ops=[],heap=new MaxHeap(),queue=new Queue(),role=null,view="landing",trackId="",lastId="",sel="",flash="",lastSub=0;const UI={qs:"",hq:"",qf:"All"};
+const DISC="Demonstration only. All patients are fictional. The priority rules here are simple examples for learning and have not been reviewed by medical professionals. Any real clinical prioritisation must be reviewed and approved by qualified clinicians.";
+const SYMS=[["Chest pain or pressure","Emergency"],["Trouble breathing","Emergency"],["Heavy bleeding","Emergency"],["Fainting or unconscious","Emergency"],["High fever","Serious"],["Suspected broken bone","Serious"],["Severe pain","Serious"],["Repeated vomiting","Serious"],["Cough, cold or mild pain","Normal"],["Minor cut or rash","Normal"],["Routine check-up","Normal"]];
+const IC={dash:"M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z",reg:"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM19 8v6M22 11h-6",queue:"M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01",hist:"M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3",dsa:"M12 2l10 5-10 5L2 7zM2 12l10 5 10-5M2 17l10 5 10-5",rep:"M18 20V10M12 20V4M6 20v-6",out:"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9",find:"M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.35-4.35",users:"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75",clock:"M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 6v6l4 2",alert:"M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01"};
+const ic=n=>`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${IC[n]}"/></svg>`;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=t=>new Date(t).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+const mins=p=>Math.max(0,Math.round(((p.done||Date.now())-p.at)/60000));
+const order=()=>heap.sorted().concat(queue.items);
+const lane=p=>p.priority==="Normal"?"Queue":"Max-Heap";
+function save(){try{localStorage.setItem(KEY,JSON.stringify({seq,heap:heap.h,queue:queue.items,treated,ops}))}catch(e){}}
+function load(){heap=new MaxHeap();queue=new Queue();seq=0;treated=[];ops=[];try{const d=JSON.parse(localStorage.getItem(KEY)||"null");if(d){seq=d.seq;treated=d.treated;ops=d.ops||[];d.heap.forEach(p=>heap.insert(p));queue.items=d.queue;return true}}catch(e){}return false}
+function note(m){ops.unshift({t:Date.now(),m});ops=ops.slice(0,10)}
+function place(p){if(p.priority==="Normal"){queue.enqueue(p);note("enqueue("+p.id+") into the Queue")}else{heap.insert(p);note("insert("+p.id+") into the Max-Heap as "+p.priority)}}
+function add(o){const id="P-"+String(++seq).padStart(3,"0");const p={id,name:o.name,age:o.age,phone:o.phone||"",reason:o.reason,priority:o.priority,rank:RK[o.priority],seq,at:o.at||Date.now(),why:o.why||""};place(p);save();return p}
+function treat(){const fh=heap.h.length>0,p=fh?heap.extractMax():queue.dequeue();if(!p)return null;p.done=Date.now();treated.push(p);note((fh?"extractMax()":"dequeue()")+" served "+p.id);save();return p}
+function seed(){seq=0;treated=[];ops=[];heap=new MaxHeap();queue=new Queue();const n=Date.now(),R=a=>a[Math.floor(Math.random()*a.length)],
+N=["Ravi Kulkarni","Anita Deshmukh","Sameer Patil","Meera Joshi","Karan Shah","Neha Iyer","Aarav Mehta","Priya Nair","Rohan Gupta","Sneha Kulkarni","Vikram Singh","Pooja Bhosale","Amit Jadhav","Kavya Reddy","Imran Shaikh","Divya Pawar","Suresh More","Tanvi Kale","Rahul Verma","Nikita Sharma"].sort(()=>Math.random()-.5),
+P={Emergency:["Chest pain spreading to left arm","Severe breathing difficulty","Heavy bleeding after accident","Fainted and unresponsive"],Serious:["High fever for three days","Suspected fractured wrist","Severe abdominal pain","Repeated vomiting since morning","Deep cut on hand"],Normal:["Sprained ankle","Persistent cough","Routine blood pressure check","Mild headache","Minor rash on arm","Sore throat and cold"]};
+let m=150;for(let i=0;i<16;i++){const r=Math.random(),pr=i%6===5||r<.1?"Emergency":r<.4?"Serious":"Normal",rs=R(P[pr]);m-=5+Math.floor(Math.random()*8);add({name:N[i],age:4+Math.floor(Math.random()*80),reason:rs,priority:pr,at:n-Math.max(m,2)*60000,why:pr==="Normal"?"Mild symptoms, no urgent signs reported (demo rule)":"Reported "+pr.toLowerCase()+" symptom: "+rs.toLowerCase()+" (demo rule)"})}
+treat();treat();ops=ops.slice(0,3);save()}
+function find(id){id=id.trim().toUpperCase();const w=order(),i=w.findIndex(p=>p.id===id);if(i>=0)return{p:w[i],i,st:"Waiting"};const t=treated.find(p=>p.id===id);return t?{p:t,st:"Treated"}:null}
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("show"),2600)}
+const tag=(c,t)=>`<span class="tag ${c}">${t||c}</span>`;
+const head=(t,s)=>`<div class="top"><div><h2>${t}</h2><p class="muted">${s||""}</p></div><span class="muted upd">Updated ${fmt(Date.now())}</span></div>`;
+const fld=(l,n,x="",req=1)=>`<label>${l}${req?'<b class="req"> *</b>':' <span class="muted">(optional)</span>'}<input name="${n}" autocomplete="off" ${x}><span class="fe" data-e="${n}"></span></label>`;
+const priRadios=d=>`<fieldset><legend>Priority <b class="req">*</b></legend><div class="pri">${Object.keys(RK).map(k=>`<label><input type="radio" name="pri" value="${k}"${k===d?" checked":""}><span class="${k}">${k}</span></label>`).join("")}</div></fieldset>`;
+const wait=(p,i)=>i===0?"You are next":"about "+(i*12)+" min";
+const stat=(i,c,v,l)=>`<div class="stat"><div class="ico ${c}">${ic(i)}</div><div><b>${v}</b><span>${l}</span></div></div>`;
+const stt=a=>{if(!a.length)return["0","-","-","-","-"];const s=[...a].sort((x,y)=>x-y),m=s.length>>1;return[a.length,Math.round(a.reduce((x,y)=>x+y,0)/a.length)+" min",(s.length%2?s[m]:Math.round((s[m-1]+s[m])/2))+" min",s[s.length-1]+" min",s[0]+" min"]};
+const row=(p,i)=>`<button class="row ${p.priority}${sel===p.id?" sel":""}" data-act="sel:${p.id}"><span class="rk ${p.priority}">${i+1}</span><span class="rm"><b>${esc(p.name)}</b><small>${p.id} · ${lane(p)}</small><span>${esc(p.reason)}</span></span><span class="rr">${tag(p.priority)}<small>${mins(p)} min waiting</small></span></button>`;
+const detail=()=>{const r=sel&&find(sel);if(!r||r.st!=="Waiting")return`<div class="card det empty"><div class="eye">◎</div><b>Select a patient</b><p class="muted">Click a patient in the queue to see their details and why they got this priority.</p></div>`;const p=r.p;return`<div class="card det"><h3>${esc(p.name)}</h3><p class="muted">${p.id} · age ${p.age}${p.phone?" · "+esc(p.phone):""}</p><div class="why ${p.priority}"><b>Why ${p.priority}?</b><p>${esc(p.why||"Set by staff.")}</p></div><dl><dt>Position</dt><dd>${r.i+1} of ${order().length}</dd><dt>Lane</dt><dd>${lane(p)}</dd><dt>Arrived</dt><dd>${fmt(p.at)}</dd><dt>Waiting</dt><dd>${mins(p)} min</dd></dl><label>Change priority<select data-pri="${p.id}">${Object.keys(RK).map(k=>`<option${k===p.priority?" selected":""}>${k}</option>`).join("")}</select></label><button class="btn ghost" data-act="rm:${p.id}">Remove from queue</button></div>`};
+const NAV={patient:[["p-in","Check in","reg"],["p-track","Track status","find"],["exit","Exit","out"]],admin:[["a-dash","Dashboard","dash"],["a-reg","Register","reg"],["a-queue","Queue","queue"],["a-hist","History","hist"],["a-rep","Reports","rep"],["a-dsa","DSA view","dsa"],["exit","Log out","out"]]};
+const CONCEPTS=`<div class="grid2"><div class="card"><h3>Queue: normal patients</h3><p class="muted" style="margin:6px 0">Patients wait in the order they arrive. The first patient who joins is the first patient called.</p><b style="color:var(--brand);font-size:13px">Concept: FIFO (First In, First Out)</b></div><div class="card"><h3>Max-Heap: emergency priority</h3><p class="muted" style="margin:6px 0">Emergency patients receive a higher priority and can be called before normal patients.</p><b style="color:var(--brand);font-size:13px">Concept: a heap lets us efficiently retrieve the highest-priority patient.</b></div></div>`;
+const V={
+landing:()=>`<div class="hero"><div class="brand"><div class="logo">+</div><div>CityCare Hospital<small>Emergency Department triage</small></div></div></div><div class="grid2"><button class="role" data-act="role:patient"><h3>I’m a patient</h3><p class="muted">Check in, get your Patient ID and follow your place in the queue.</p></button><button class="role" data-act="role:admin"><h3>Admin</h3><p class="muted">Register walk-ins, manage the queue and view reports.</p></button></div><h3 style="margin:28px 0 12px">How patients are called</h3>${CONCEPTS}`,
+"p-in":()=>head("Patient check-in","Fields marked * are required.")+`<div class="card"><form data-form="pin" novalidate>${fld("Full name","name")}${fld("Age","age",'type="number" min="0" max="120" inputmode="numeric"')}${fld("Mobile number","phone",'type="tel" inputmode="tel" placeholder="10 digits"')}${fld("Reason for visit","reason",'maxlength="120"')}<fieldset><legend>Select any symptoms you have</legend><div class="syms">${SYMS.map(([t],i)=>`<label><input type="checkbox" name="sym" value="${i}">${t}</label>`).join("")}</div></fieldset><p class="hint">Your priority is set from the symptoms you select. If you feel you are in danger, tell the front desk right away.</p><p class="err" id="err" role="alert"></p><button class="btn">Get my Patient ID</button></form></div>`,
+"p-done":()=>{const r=find(lastId);if(!r)return V["p-in"]();const p=r.p;return`<div class="okb" style="max-width:540px">You are checked in. Keep your Patient ID safe.</div><div class="card ticket"><div class="id">${p.id}</div><dl><dt>Name</dt><dd>${esc(p.name)}</dd><dt>Priority</dt><dd>${tag(p.priority)}</dd><dt>Why this priority</dt><dd>${esc(p.why)}</dd><dt>People ahead of you</dt><dd>${r.i}</dd><dt>Estimated wait</dt><dd>${wait(p,r.i)}</dd></dl><button class="btn" data-act="track">Track my status</button></div>`},
+"p-track":()=>{const r=trackId&&find(trackId);let out="";if(trackId&&!r)out=`<p class="err">No patient found with ID ${esc(trackId)}. Check the ID and try again.</p>`;else if(r){const p=r.p;out=`<div class="card ticket"><div class="id">${p.id}</div><p>${esc(p.name)} ${tag(p.priority)}</p><dl><dt>Status</dt><dd>${r.st==="Treated"?tag("Treated"):tag(p.priority,"Waiting")}</dd>${r.st==="Waiting"?`<dt>Position in line</dt><dd>${r.i+1}</dd><dt>People ahead</dt><dd>${r.i}</dd><dt>Estimated wait</dt><dd>${wait(p,r.i)}</dd>`:`<dt>Treated at</dt><dd>${fmt(p.done)}</dd>`}<dt>Checked in</dt><dd>${fmt(p.at)}</dd></dl></div>`}return head("Track my status","Enter the Patient ID from your ticket.")+`<form class="srch" data-form="track"><input name="id" placeholder="Patient ID, e.g. P-017" value="${esc(trackId)}" aria-label="Patient ID"><button class="btn">Check</button></form>${out}`},
+"a-login":()=>head("Admin login")+`<div class="card" style="max-width:420px"><form data-form="login"><label>Admin password<b class="req"> *</b><input name="pw" type="password" autocomplete="current-password"></label><p class="err" id="err" role="alert"></p><button class="btn">Log in</button></form></div>`,
+"a-dash":()=>{const w=order(),em=w.filter(p=>p.priority==="Emergency"),sv=w.filter(p=>p.priority==="Serious").length,no=w.length-em.length-sv,t=w.length||1,a=Math.round(em.length/t*100),b=a+Math.round(sv/t*100),av=stt(treated.map(mins))[1];
+return head("Dashboard","Live overview of the emergency department")+`<div class="stats">${stat("users","",seq,"Registered patients")}${stat("clock","w",w.length,"Waiting")}${stat("alert","e",em.length,"Emergency cases")}${stat("hist","t",treated.length,"Treated")}${stat("clock","",av==="-"?"0 min":av,"Average wait")}</div><div class="split2"><div class="card emq"><div class="ch"><h3>Emergency queue</h3><button class="btn noprint" data-act="treat"${w.length?"":" disabled"}>Treat next patient</button></div>${em.length?em.slice(0,5).map(p=>`<div class="erow"><b>${esc(p.name)} <small class="muted">${p.id}</small></b>${tag("Emergency")}<span>${esc(p.reason)}</span><small class="muted">${mins(p)} min waiting</small></div>`).join(""):'<p class="ok2">No emergency cases are waiting.</p>'}</div><div class="card"><h3>Waiting by priority</h3><div class="donut" style="background:conic-gradient(${w.length?`var(--em) 0 ${a}%,#f59e0b ${a}% ${b}%,#22c55e ${b}% 100%`:"var(--line) 0 100%"})"><b>${w.length}</b><small>waiting</small></div><div class="leg"><div><span><i style="background:var(--em)"></i>Emergency</span><b>${em.length}</b></div><div><span><i style="background:#f59e0b"></i>Serious</span><b>${sv}</b></div><div><span><i style="background:#22c55e"></i>Normal</span><b>${no}</b></div></div></div></div><p class="noprint"><button class="btn" data-act="go:a-reg">Register a patient</button> <button class="btn ghost" data-act="reset">Reset demo data</button></p>`},
+"a-reg":()=>{const f=flash;flash="";return head("Register a patient","Fields marked * are required.")+(f?`<div class="okb" role="status">${esc(f)}</div>`:"")+`<div class="card"><form data-form="areg" novalidate><label>Patient ID<input value="P-${String(seq+1).padStart(3,"0")}" readonly></label>${fld("Patient name","name")}${fld("Age","age",'type="number" min="0" max="120" inputmode="numeric"')}${fld("Mobile number","phone",'type="tel" placeholder="10 digits"',0)}${fld("Reason for visit","reason",'maxlength="120"')}${priRadios("Normal")}<p class="err" id="err" role="alert"></p><button class="btn">Register patient</button></form></div>`},
+"a-queue":()=>{const all=order(),f=UI.qf,s=UI.qs.toLowerCase(),l=all.map((p,i)=>[p,i]).filter(([p])=>(f==="All"||p.priority===f)&&(p.id+p.name+p.reason).toLowerCase().includes(s));
+return head("Patient queue","Emergency patients are called first, then others by priority and arrival.")+`<div class="bar"><input class="sr" id="qs" data-keep placeholder="Search name, ID or reason" value="${esc(UI.qs)}" aria-label="Search queue"><div class="chips">${["All","Emergency","Serious","Normal"].map(c=>`<button class="chip${c===f?" on":""}" data-act="qf:${c}">${c}</button>`).join("")}</div><button class="btn" data-act="treat"${all.length?"":" disabled"}>Treat next patient</button></div><div class="split"><div class="list">${l.length?l.map(([p,i])=>row(p,i)).join(""):'<div class="card empty">No patients match. Clear the search or filter.</div>'}</div>${detail()}</div>`},
+"a-hist":()=>{const f=UI.hq.toLowerCase(),l=[...treated].reverse().filter(p=>(p.id+p.name+p.reason).toLowerCase().includes(f));return head("Treatment history","Patients who have been treated")+`<div class="srch"><input id="hq" data-keep placeholder="Search name, ID or reason" value="${esc(UI.hq)}" aria-label="Search history"></div><div class="card tw"><table><thead><tr><th>Patient ID</th><th>Name</th><th>Reason for visit</th><th>Priority</th><th>Arrived</th><th>Treated</th><th>Wait</th><th>Status</th></tr></thead><tbody>${l.length?l.map(p=>`<tr><td>${p.id}</td><td>${esc(p.name)}</td><td>${esc(p.reason)}</td><td>${tag(p.priority)}</td><td>${fmt(p.at)}</td><td>${fmt(p.done)}</td><td>${mins(p)} min</td><td>${tag("Treated")}</td></tr>`).join(""):`<tr><td colspan="8" class="empty">No matching treated patients.</td></tr>`}</tbody></table></div>`},
+"a-rep":()=>{const w=order(),ws=stt(w.map(mins)),ts=stt(treated.map(mins)),K=Object.keys(RK),C={Emergency:"var(--em)",Serious:"#f59e0b",Normal:"#22c55e"},mx=Math.max(1,...K.map(k=>w.filter(p=>p.priority===k).length));
+return head("Reports","Summary of today’s demo data")+`<div class="pr"><b>CityCare Emergency Department: triage summary</b><br>Generated ${new Date().toLocaleString()}. Fictional demo data.</div><p class="noprint" style="margin-bottom:14px"><button class="btn" data-act="print">Print summary</button></p><div class="stats">${stat("users","",seq,"Patients registered")}${stat("clock","w",w.length,"Waiting now")}${stat("hist","t",treated.length,"Treated")}</div><div class="split2" style="grid-template-columns:1fr 1fr"><div class="card"><h3>Queue counts by priority</h3>${K.map(k=>{const n=w.filter(p=>p.priority===k).length;return`<div class="cbar"><span>${k}</span><div><i style="width:${n/mx*100}%;background:${C[k]}"></i></div><b>${n}</b></div>`}).join("")}</div><div class="card tw"><table style="min-width:0"><thead><tr><th>Priority</th><th>Waiting</th><th>Treated</th><th>Avg wait (waiting)</th></tr></thead><tbody>${K.map(k=>{const a=w.filter(p=>p.priority===k),t=treated.filter(p=>p.priority===k).length;return`<tr><td>${tag(k)}</td><td>${a.length}</td><td>${t}</td><td>${stt(a.map(mins))[1]}</td></tr>`}).join("")}</tbody></table></div></div><div class="card tw" style="margin-top:16px"><table><thead><tr><th>Waiting-time statistics</th><th>Waiting now</th><th>Treated</th></tr></thead><tbody>${["Patients","Average wait","Median wait","Longest wait","Shortest wait"].map((m,i)=>`<tr><td>${m}</td><td>${ws[i]}</td><td>${ts[i]}</td></tr>`).join("")}</tbody></table></div>`},
+"a-dsa":()=>{const hs=heap.h,qs=queue.items;let tree="";for(let s=0,l=0;s<hs.length;s+=2**l,l++)tree+=`<div class="lvl">${hs.slice(s,s+2**l).map(p=>`<div class="node ${p.priority}"><b>${p.id}</b><small>${p===hs[0]?"Max (next)":p.priority}</small></div>`).join("")}</div>`;
+const qrow=qs.map((p,i)=>`<div class="node Normal"><b>${p.id}</b><small>${i===0?"Front":i===qs.length-1?"Rear":""}</small></div>`).join("<i>→</i>");
+return head("DSA view","Treat next calls extractMax() on the heap first. If the heap is empty it calls dequeue() on the queue.")+`<p style="margin-bottom:14px"><button class="btn" data-act="treat"${hs.length+qs.length?"":" disabled"}>Treat next patient</button></p><div class="grid2"><div class="card"><h3>Max-Heap: Emergency and Serious</h3><p class="muted">Highest priority is the root. insert and extractMax take O(log n).</p>${tree||'<p class="empty">The heap is empty.</p>'}<div class="arr">Array: [${hs.map(p=>p.id).join(", ")}]</div></div><div class="card"><h3>Queue (FIFO): Normal</h3><p class="muted">First in, first out. enqueue and dequeue take O(1).</p><div class="qrow">${qrow||'<p class="empty" style="width:100%">The queue is empty.</p>'}</div><div class="arr">Array: [${qs.map(p=>p.id).join(", ")}]</div></div></div><div class="card" style="margin-top:16px"><h3 style="margin-bottom:6px">Recent operations</h3><ul class="ops">${ops.length?ops.map(o=>`<li><span>${fmt(o.t)}</span>${esc(o.m)}</li>`).join(""):'<li class="muted">No operations yet.</li>'}</ul></div>`}};
+function render(){document.body.classList.toggle("land",!role);const nv=role==="admin"&&!window.authed?[["exit","Back","out"]]:NAV[role]||[];$("#nav").innerHTML=nv.map(([v,l,i])=>`<button data-act="${v==="exit"?"exit":"go:"+v}"${v===view||(v==="p-in"&&view==="p-done")?' aria-current="page"':""}>${ic(i)}${l}</button>`).join("");$("#app").innerHTML=V[view]()+`<p class="disc">${DISC}</p>`}
+function go(v){if(role==="admin"&&!window.authed&&v!=="landing")v="a-login";view=v;render();scrollTo(0,0)}
+function check(k,g){const e={},age=parseInt(g("age"),10),ph=g("phone").replace(/[\s+-]/g,"");
+if(!/^\p{L}[\p{L} .'-]{1,59}$/u.test(g("name")))e.name="Enter the full name using letters only (2 to 60 characters).";
+if(!/^\d{1,3}$/.test(g("age"))||age>120)e.age="Enter an age between 0 and 120.";
+if(k==="pin"?!/^\d{10,12}$/.test(ph):(ph&&!/^\d{10,12}$/.test(ph)))e.phone="Enter a valid mobile number with 10 digits.";
+if(g("reason").length<3)e.reason="Describe the reason for the visit (at least 3 characters).";
+const d=order().find(p=>p.name.toLowerCase()===g("name").toLowerCase()&&p.age===age);if(d&&!e.name&&!e.age)e.name=d.name+" ("+d.id+") is already waiting in the queue.";return e}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(!b)return;const[a,x]=b.dataset.act.split(":");
+if(a==="role"){role=x;go(x==="patient"?"p-in":window.authed?"a-dash":"a-login")}
+else if(a==="go")go(x);else if(a==="track"){trackId=lastId;go("p-track")}
+else if(a==="exit"){role=null;window.authed=false;go("landing")}
+else if(a==="sel"){sel=x;render()}else if(a==="qf"){UI.qf=x;render()}
+else if(a==="print"){try{window.print()}catch(er){toast("Printing is not available in this view")}}
+else if(a==="treat"){const p=treat();if(p){if(sel===p.id)sel="";render();toast(p.name+" ("+p.id+") moved to treatment history")}}
+else if(a==="rm"){heap.remove(x);queue.remove(x);note("removed "+x+" from the lanes");sel="";save();render();toast(x+" removed")}
+else if(a==="reset"){seed();sel="";render();toast("Demo data reset")}});
+document.addEventListener("change",e=>{const id=e.target.dataset.pri;if(!id)return;const p=order().find(q=>q.id===id),o=p.priority;heap.remove(id);queue.remove(id);p.priority=e.target.value;p.rank=RK[p.priority];p.why="Changed from "+o+" to "+p.priority+" by admin at "+fmt(Date.now());place(p);save();render();toast(id+" is now "+p.priority)});
+document.addEventListener("input",e=>{const t=e.target;if(t.dataset.keep!==undefined){UI[t.id]=t.value;const pos=t.selectionStart;render();const i=document.getElementById(t.id);i.focus();i.setSelectionRange(pos,pos)}});
+document.addEventListener("submit",e=>{e.preventDefault();const f=e.target,k=f.dataset.form,d=new FormData(f),g=n=>(d.get(n)||"").toString().trim();
+if(k==="login"){if(g("pw")==="1234"){window.authed=true;go("a-dash")}else $("#err").textContent="Incorrect password. Try again.";return}
+if(k==="track"){trackId=g("id");render();return}
+f.querySelectorAll(".fe").forEach(s=>s.textContent="");f.querySelectorAll("[aria-invalid]").forEach(x=>x.removeAttribute("aria-invalid"));
+const er=check(k,g),ks=Object.keys(er);
+if(ks.length){ks.forEach(n=>{f.querySelector(`[data-e="${n}"]`).textContent=er[n];f.querySelector(`[name="${n}"]`).setAttribute("aria-invalid","true")});$("#err").textContent="Please fix "+ks.length+" field"+(ks.length>1?"s":"")+" below before submitting.";f.querySelector(`[name="${ks[0]}"]`).focus();return}
+if(Date.now()-lastSub<1500)return;lastSub=Date.now();
+const age=parseInt(g("age"),10);
+if(k==="pin"){const ix=d.getAll("sym").map(Number),top=ix.length?Math.max(...ix.map(i=>RK[SYMS[i][1]])):1,pr=Object.keys(RK).find(x=>RK[x]===top),nm=ix.filter(i=>RK[SYMS[i][1]]===top).map(i=>SYMS[i][0].toLowerCase());
+const p=add({name:g("name"),age,phone:g("phone"),reason:g("reason"),priority:pr,why:ix.length?"You reported "+nm.join(", ")+", a "+pr.toLowerCase()+" symptom (demo rule)":"No urgent symptoms selected (demo rule)"});lastId=p.id;view="p-done";render();scrollTo(0,0)}
+else{const p=add({name:g("name"),age,phone:g("phone"),reason:g("reason"),priority:g("pri"),why:"Priority set by admin at registration"});flash=p.name+" was registered as "+p.id+" ("+p.priority+") and added to the "+lane(p)+".";render();scrollTo(0,0);toast(p.id+" registered")}});
+window.addEventListener("storage",e=>{if(e.key===KEY){load();if(!/p-in|a-reg|login/.test(view))render()}});
+setInterval(()=>{const a=document.activeElement.tagName;if(/queue|hist|dash|track|done|dsa|rep/.test(view)&&a!=="INPUT"&&a!=="SELECT")render()},30000);
+if(!load())seed();render();
+</script>
+</body>
+</html>
